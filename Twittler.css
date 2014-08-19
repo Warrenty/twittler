@@ -1,0 +1,39 @@
+<style type="text/css">
+    body{
+      text-align:left;
+      font-family: sans-serif;
+
+    }
+    #header{
+      font-size: 200%;
+      width: 494px;
+      margin:auto;
+      background-color: #d4e9ff;
+      color: gray;
+      border-bottom: 2px solid gray;
+      border-right: 2px solid gray;
+      border-radius: 10px;
+      box-shadow: 10px 10px 5px #888888;
+      font-weight: bold;
+      padding:10px;
+    }
+    .twits{
+      border-bottom: 2px solid gray;
+      border-right: 2px solid gray;
+      padding: 5px;
+      width: 500px;
+      margin:auto;
+      background-color: #d4e9ff;
+      border-radius: 10px;
+      box-shadow: 10px 10px 5px #888888;
+    }
+    .users{
+      font-weight: bold;
+    }
+    .timestamp{
+      font-size: 75%;
+      float: right;
+      color: gray;
+    }
+
+    </style>
