@@ -6,25 +6,29 @@
     <link rel="stylesheet" type="text/css" href="Twittler.css">
     <title> Twittler </title>
   </head>
-  <body background ='cyan_and_white_mini_grid_seamless_tileable_background_pattern.gif'>
+  <body style = "background-color: cadetblue;">
     <div id = "header"> 
       TWITTS
     </div>
     <div id = "space">
       <br>
     </div>
+    <div id = "home">
+    </div>
+    <div id = "userTimeline">
+    </div>
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
+        var index = 0;
+        while(index < streams.home.length){
           var tweet = streams.home[index];
           var $tweet = $('<div class = "twits"></div>');
           $tweet.append('@' + '<span class = "users">' +tweet.user + '</span><span class= "timestamp">' + tweet.created_at + '</span><div class = "messages">' + tweet.message+'</div>');
-          $tweet.appendTo($body);
-          index -= 1;
+          $tweet.prependTo($('#home'));
+          index += 1;
         }
 
         var currLength = streams.home.length;
@@ -36,14 +40,39 @@
               var tweet = streams.home[currLength-diff];
               var $tweet = $('<div class = "twits"></div>');
               $tweet.append('@' + '<span class = "users">' +tweet.user + '</span><span class= "timestamp">' + tweet.created_at + '</span><div class = "messages">' + tweet.message+'</div>');
-              $tweet.insertAfter($('#space')).hide().fadeIn(1000);
+              $tweet.prependTo($('#home')).hide().fadeIn(1000);
               diff -= 1;
-              $("body div:last").parent().remove();
+              $("#home").children().last().remove();
             }
             currLength = newLength;
           }
-        },1000)
+        },2000);
 
+        $('body').on('click', '.users', function(){
+          $('#userTimeLine').children().remove();
+          var userName =  $(this).text();
+          $('#home').fadeOut(250, function(){
+            var index = streams.users[userName].length - 1;
+            while(index >= 0){
+              var tweet = streams.users[userName][index];
+              var $tweet = $('<div class = "twits"></div>');
+              $tweet.append('@' + '<span class = "users">'   +tweet.user + '</span><span class= "timestamp">' + tweet.created_at + '</span><div class = "messages">' + tweet.message+'</div>');
+              $tweet.appendTo($('#userTimeline')).hide().fadeIn(750);
+              index -= 1;
+            }
+            $('#header').text('@'+userName);
+            $('#header').append($('<button>home</button>'))
+          });
+        }); 
+
+        $('#header').on('click', 'button', function(){
+          $('#header').text('TWITTS');
+          $('button').remove();
+          $('#userTimeLine').fadeOut(250, function(){
+            $('#home').fadeIn(750);
+          });
+        });  
+             
       });
 
     </script>
